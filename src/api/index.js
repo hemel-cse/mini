@@ -1,5 +1,4 @@
 // General api to access data
-import ApiConstants from './ApiConstants';
 
 export default function api(path, params, method, token) {
     let options;
@@ -23,7 +22,7 @@ export default function api(path, params, method, token) {
 
     console.log(options)
 
-    return fetch(ApiConstants.BASE_URL + path, options)
+    return fetch(path, options)
         .then(resp => resp.json())
         .then(json => json)
         .catch(error => error);

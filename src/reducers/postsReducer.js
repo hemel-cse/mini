@@ -3,7 +3,7 @@ import * as types from '../actions/types';
 
 const initialState = {
     isPostsFetched: false,
-    posts: null,
+    posts: {},
 };
 
 export const postsReducer = createReducer(initialState, {

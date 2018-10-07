@@ -11,7 +11,7 @@ export default function* postAsync(action) {
 		);
         console.log(response)
         if (response) {
-            yield put(postsActions.onPostsResponse(response.token));
+            yield put(postsActions.onPostsResponse(response));
             yield put(postsActions.disableLoader({}));
         } else {
             yield put(postsActions.postsFailed());
