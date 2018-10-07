@@ -16,7 +16,11 @@ const middleware = [];
 const sagaMiddleware = createSagaMiddleware();
 
 middleware.push(sagaMiddleware);
-middleware.push(createLogger());
+
+if (process.env.NODE_ENV !== 'production') {
+	middleware.push(createLogger());
+}
+  
 
 const enhancers = [applyMiddleware(...middleware)];
 

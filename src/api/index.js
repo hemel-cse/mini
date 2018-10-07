@@ -27,3 +27,27 @@ export default function api(path, params, method, token) {
         .then(json => json)
         .catch(error => error);
 }
+
+
+// function fetchMetaData() {
+//     let pagesRequired = 0;
+
+//     fetch('apiUrlToGetPageNumber')
+//     .then(resp = > {
+//         const apiPromises = [],
+//         pagesRequired = resp.data.pagesRequired,
+
+//         for (let i=pagesRequired; i>0; i--) {
+//             apiPromises.push(fetch('apiUrlToSpecificPage?page = ' + i));
+//         }
+
+//         Promise.all(apiPromises)
+//         .then(responses => {
+//             const processedResponses = [];
+//             responses.map(response => {
+//                 processedResponses.push(response);
+//             }
+
+//         });
+//     }
+// }
