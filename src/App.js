@@ -56,7 +56,7 @@ class App extends Component {
           { this.props.isPostsFetched ?
             <p>Fetched</p> &&
             <p>{JSON.stringify(this.props.isPosts)}</p>
-            : <p></p>
+            : null
           }
           <br/><br/>
         </div>

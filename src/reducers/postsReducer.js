@@ -3,7 +3,8 @@ import * as types from '../actions/types';
 
 const initialState = {
     isPostsFetched: false,
-    posts: {},
+    onPageNumber: 1,
+    posts: [],
 };
 
 export const postsReducer = createReducer(initialState, {
@@ -19,7 +20,7 @@ export const postsReducer = createReducer(initialState, {
         return {
             ...state,
             isPostsFetched: true,
-            posts: action.response
+            posts: state.posts.concat(action.response),
         };
     },
     [types.POSTS_FAILED](state) {
