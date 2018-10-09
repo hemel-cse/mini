@@ -31,3 +31,31 @@ export function disableLoader() {
         type: types.POSTS_DISABLE_LOADER
     };
 }
+
+
+export function filterText(text = '') {
+    return {
+        type: types.FILTER_TEXT,
+        text,
+    };
+}
+
+export function sortBy(sortType) {
+    return {
+        type: types.SORT_BY,
+        sortType,
+    };
+}
+
+const filtersInitialState = {
+    text: '',
+    sortBy: '',
+};
+
+
+export function clear() {
+    return {
+        type: types.CLEAR,
+        defaultFilter: filtersInitialState
+    };
+}

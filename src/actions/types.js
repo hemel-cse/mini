@@ -6,3 +6,6 @@ export const POSTS_REQUEST = 'POSTS_REQUEST';
 export const POSTS_RESPONSE = 'POSTS_RESPONSE';
 export const POSTS_FAILED = 'POSTS_FAILED';
 export const POSTS_LOADING_ENDED = 'POSTS_LOADING_ENDED';
+export const FILTER_TEXT = 'FILTER_TEXT';
+export const SORT_BY = 'SORT_BY';
+export const CLEAR = 'CLEAR';
