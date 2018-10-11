@@ -1,4 +1,4 @@
-# shobe
+# Mini
 
 #### React, Redux, Saga, Logger, Selector
 
