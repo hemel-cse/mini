@@ -42,6 +42,11 @@ export const postsReducer = createReducer(initialState, {
     },
     [types.POSTS_RESPONSE](state, action) {
         // let result = [...new Set([...state.posts , ...action.response])];
+        // result.sort(function(a,b){
+        //     // Turn your strings into dates, and then subtract them
+        //     // to get a value that is either negative, positive, or zero.
+        //     return new Date(b.date) - new Date(a.date);
+        //   });
         let result = [...action.response];
         return {
             ...state,

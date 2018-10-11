@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -35,12 +34,9 @@ const store = createStore(
 sagaMiddleware.run(sagas);
 
 
-ReactDOM.render(<Provider store={store}>
-		<BrowserRouter>
-			<Switch>
-    				<Route exact path='/' component={App} />
-  			</Switch>
-		</BrowserRouter>
+ReactDOM.render(
+	<Provider store={store}>
+		<App/>
 	</Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
