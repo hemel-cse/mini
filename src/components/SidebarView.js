@@ -23,22 +23,30 @@ class SideBarView extends React.Component {
     }
     
       render() {
+        const { news } = this.props;
+
+        let newspost = [];
+
+        news.map((post, index) => {
+            let link = "/#"+post.category.name.toLowerCase();
+            let title = <div style={{fontSize: "16px", paddingBottom: "2px",}}>{post.title} - <a href={link}>{post.category.name}</a></div>;
+            let divider = <Divider style={{margin: "5px 0",}} />;
+            let content = <div className="sidebarViewContent" key={index}>{title} {divider}</div>;
+            return newspost.push(content);
+        });
         
         return (
           <div className="sidebarView">
                 <div style={{textAlign: "center", color: "#565555", fontSize: "20px", fontWeight: "bold", paddingBottom: "2px", borderBottom: "1px solid", borderBottomColor: "#828282", marginBottom: "10px", alignSelf: "self-start"}}>Latest News</div>
-                <div style={{fontSize: "16px", paddingBottom: "2px",}}>{this.sideArray[0].title} - <a href="#international">International</a></div>
-                <Divider style={{margin: "5px 0",}} />
-                <div style={{fontSize: "16px", paddingBottom: "2px",}}>{this.sideArray[0].title} - <a href="#international">International</a></div>
+                {newspost}
           </div>
         );
       }
 }
 
 
-// SideBarView.propTypes = {
-// //   image: PropTypes.any.isRequired,
-// //   title: PropTypes.string.isRequired,
-// };
+SideBarView.propTypes = {
+  news: PropTypes.array.isRequired,
+};
 
 export default SideBarView;

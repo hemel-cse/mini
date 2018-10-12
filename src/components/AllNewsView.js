@@ -2,63 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Divider from 'antd/lib/divider';
-
+import humanReadableTime from '../utils/humanTime';
 
 class AllNewsView extends React.Component {
-
-    constructor() {
-        super(...arguments);
-        this.catNews = [
-            {
-                "image": 'http://mininews.co/media/news/2018/09/13/4599674d-d525-4e05-b5cb-8baf95cef529.jpg',
-                "title": 'সৌদি-রাশিয়া তেলের বাজার',
-                "description" : "ইরানের ওপিইসি গভর্নর হোসেইন কাজেমপোর আর্দেবিলি অভিযোগ করে বলেছেন, বিশ্বের তেল রপ্তানিকারক দেশগুলোর সংগঠনভুক্ত (ওপিইসি) দেশ সৌদি আরব ও অ-ওপিইসি দেশ রাশিয়া বিশ্বব্যাপী তেল বাজার জিম্মি করে রেখেছে। ইরানের বিশ্বব্যাপী তেল বাজারে প্রবেশ বন্ধ করতে যুক্তরাষ্ট্রের প্রচেষ্টার কারণে এ অবস্থার সৃষ্টি হয়েছে।",
-                "time" : "28 Oct, 18",
-                "source": "Prothom alo",
-                "category": "International"
-
-            },
-            {
-                "image": 'https://zos.alipayobjects.com/rmsportal/gGlUMYGEIvjDOOw.jpg',
-                "title": 'title 2 title 1',
-                "description" : "ok this is news description.ok this is news description. ok this is news description. ok this is news description. ok this is news description.",
-                "time" : "sep 28",
-                "source": "prothom alo"
-
-            }
-        ];
-    }
     
       render() {
-        
-        return (
-                <div className="allNews">
-                    <div className="allNewsItem">
+
+        const {allNewsPostsItems} = this.props;
+
+        let output = [];
+        let posts = [];
+
+        console.log(allNewsPostsItems);
+
+        posts = allNewsPostsItems;
+
+        console.log(posts);
+
+        posts.map((news, index) => {
+            let time = humanReadableTime(news.timestamp);
+            let details = news.content.replace(/(\r\n\t|\n|\r\t)/gm,"");
+
+            let item = <div className="allNewsItem">
                         <div className="allNewsItemImage">
-                            <div style={{backgroundSize: 'cover', backgroundPosition: 'center',height: "100%", width: '100%', backgroundImage: `url(${this.catNews[0].image})`, backgroundColor: 'grey',}}></div>
+                            <div style={{backgroundSize: 'cover', backgroundPosition: 'center',height: "100%", width: '100%', backgroundImage: `url(${news.image})`, backgroundColor: 'grey',}}></div>
                         </div>
                         <div className="allNewsItemDetail">
-                               <div style={{fontSize: "16px", fontWeight: "700", color: "#565555"}}>{this.catNews[0].title}</div>
+                               <div style={{fontSize: "16px", fontWeight: "700", color: "#565555"}}>{news.title}</div>
                                <Divider style={{margin: "5px 0", width:"70%"}} />
-                               <div style={{fontSize: "14px", color: "#565555"}}>{this.catNews[0].description}</div>
+                               <div style={{fontSize: "14px", color: "#565555"}}>{details}</div>
                                <Divider style={{margin: "5px 0",}} />
                                <div className="allNewsItemInfo">
-                                    <div style={{textAlign: "left", fontSize: "13px",}}>{this.catNews[0].time}</div>
-                                    <div style={{textAlign: "right", fontSize: "13px"}}>Source: <a href="#">{this.catNews[0].source}</a></div>
+                                    <div style={{textAlign: "left", fontSize: "13px",}}>{time}</div>
+                                    <div style={{textAlign: "right", fontSize: "13px"}}>Source: <a href={news.source_link} target="_blank" rel="noopener noreferrer">{news.source.name}</a></div>
                                </div>
                         </div>
-                    </div> 
-                    <Divider style={{margin: "5px 0",}} />
-                </div>
-        );
+                    </div> ;
+            let divider = <Divider style={{margin: "5px 0",}} />;
+
+            return output.push(<div className="allNews" key={index}>{item} {divider}</div>);
+        });
+        
+        return output;
       }
 }
 
 
-// AllNewsView.propTypes = {
-//   image: PropTypes.any.isRequired,
-//   title: PropTypes.string.isRequired,
-
-// };
+AllNewsView.propTypes = {
+    allNewsPostsItems: PropTypes.array.isRequired,
+};
 
 export default AllNewsView;

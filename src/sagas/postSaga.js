@@ -8,9 +8,9 @@ export default function* postAsync(action) {
     try {
         const response = yield call(
 		getPosts,
-		);
-        console.log(response)
-        if (response) {
+        );
+
+        if (response.length > 0) {
             yield put(postsActions.onPostsResponse(response));
             yield put(postsActions.disableLoader({}));
         } else {
@@ -18,7 +18,6 @@ export default function* postAsync(action) {
             yield put(postsActions.disableLoader({}));
         }
     } catch (error) {
-        console.log(error)
         yield put(postsActions.postsFailed());
         yield put(postsActions.disableLoader({}));
     }

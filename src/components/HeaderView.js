@@ -23,6 +23,7 @@ class HeaderView extends React.Component {
                     <Input
                         addonBefore={<IoIosSearch  color="blue" size="2em" className="search-icon" />}
                         defaultValue=""
+                        placeholder="Search..."
                         value={isSearchName}
                         onChange={handleSearchName}
                         onPressEnter={handleSearchName} 

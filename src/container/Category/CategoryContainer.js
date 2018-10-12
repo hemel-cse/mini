@@ -18,7 +18,7 @@ import categories from '../../constants';
 import capitalizeFirstLetter from '../../utils/capitalString';
 
 import { requestPosts, filterText, sortBy } from '../../actions/postsActions';
-import getVisibleProfiles from '../../selectors/profiles';
+import getVisiblePosts from '../../selectors/posts';
 
 class CategoryContainer extends Component {
 
@@ -29,12 +29,6 @@ class CategoryContainer extends Component {
         posts: [],
         name: props.match.params.name
     };
-  }
-
-
-  fetchPosts = () => {
-    console.log("button pressed!");
-    this.props.onPostFetch();
   }
 
   handleSearchName = (e) => {
@@ -72,7 +66,7 @@ class CategoryContainer extends Component {
            <br/>
            
             <div className="singleCategoryTitle">
-                <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
+                <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "grey",}}></div>
                 <h3 style={{color: "#565555", fontWeight: "700", fontSize: "20px",}}>{catname}</h3>
             </div>
 
@@ -107,7 +101,7 @@ function mapStateToProps(state, props) {
     isPostsFetched: state.postsReducer.isPostsFetched,
     isSearchName: state.filtersReducer.text,
     isSortBy: state.filtersReducer.sortBy,
-    isPosts: getVisibleProfiles(state.postsReducer.posts, state.filtersReducer),
+    isPosts: getVisiblePosts(state.postsReducer.posts.data, state.filtersReducer),
   };
 }
 function mapDispatchToProps(dispatch) {

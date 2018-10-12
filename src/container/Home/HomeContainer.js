@@ -20,16 +20,24 @@ import AllNewsView from '../../components/AllNewsView';
 import categories from '../../constants';
 
 import { requestPosts, filterText, sortBy } from '../../actions/postsActions';
-import getVisibleProfiles from '../../selectors/profiles';
+import getVisiblePosts from '../../selectors/posts';
 
 class HomeContainer extends Component {
 
   constructor(props) {
     super(props);
+    
      this.state = {
-        posts: [],
         isLoaded: false,
+        loadpost: 6,
+        showLoadMore: true,
     };
+  }
+
+  componentDidMount(){
+    if(!this.props.isPostsFetched) {
+      this.fetchPosts();
+    }
   }
 
 
@@ -40,19 +48,91 @@ class HomeContainer extends Component {
 
   handleSearchName = (e) => {
     e.preventDefault();
-    this.props.onSearchName(e.target.value);
+    this.props.onSearchItem(e.target.value);
   }
 
   handleSortName = (value) => {
-    this.props.onSortName(value);
+    this.props.onSortItem(value);
+  }
+
+  handleLoadMore = () => {
+    let loadPostCount = this.state.loadpost + 6;
+    if(loadPostCount < this.props.allPostsCount){
+      this.setState({loadpost: loadPostCount}); 
+    }
+    else {
+      this.setState({showLoadMore: false}); 
+    }
   }
 
   componentDidUpdate() {
-    console.log('Data Update...');
+
   }
 
 
   render() {
+
+    let output = [];
+    let allNews = [];
+    let loadmore = []; 
+    let sidebarNews = this.props.allPosts.slice(0, 8);
+    let allNewsPosts = this.props.allPosts.slice(0, this.state.loadpost);
+
+
+
+    console.log(allNewsPosts);
+
+    if(this.state.showLoadMore){
+      loadmore = <div className="loadmore"><Button style={{bottom: "5px",}} onClick={this.handleLoadMore}>Load More</Button></div>;
+    }
+
+    if(this.props.isPostsFetched) {
+        allNews = <AllNewsView allNewsPostsItems={allNewsPosts} />;
+    }
+  
+    if(!this.props.isPostsFetched || this.props.isLoading) {
+      output = <Loading/>;
+    }
+    else if(this.props.isError){
+      output = <div style={{alignItems: "center" ,width: "80%", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555",}}>Something Wrong! Please Try Again!</h2></div>;
+    }
+    else {
+        output = 
+          <div className="content">
+
+            <div className="topContent">
+              <div className="gallaryContent">
+                  <ImageSlider 
+                    image="https://jssorcdn7.azureedge.net/demos/img/gallery/980x380/002.jpg"
+                    title="slider title"
+                  />
+              </div>
+              <div className="sidebarContent">
+                  <SideBarView news={sidebarNews} />
+              </div>
+            </div>
+
+            <Divider/>
+
+            <div className="categoryNewsContainer">
+                  <CategoryNewsView catNews={this.props.catPosts}/>
+            </div>
+
+            <Divider/>
+
+            <div className="allNewsItemTitle">
+                <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
+                <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "18px",}}>All News</h3>
+            </div>
+
+            <div className="allNewsContainer">
+                {allNews}
+            </div>
+
+          {loadmore}
+            
+        </div>;
+    }
 
     return (
       <Layout className="container">
@@ -67,44 +147,9 @@ class HomeContainer extends Component {
 
            <br/><br/>
 
-            <div className="topContent">
-              <div className="gallaryContent">
-                  <ImageSlider 
-                    image="https://jssorcdn7.azureedge.net/demos/img/gallery/980x380/002.jpg"
-                    title="slider title"
-                  />
-              </div>
-              <div className="sidebarContent">
-                  <SideBarView />
-              </div>
-            </div>
-
-            <Divider/>
-
-            <div className="categoryNewsContainer">
-                  <CategoryNewsView />
-            </div>
-
-            <Divider/>
-
-            <div className="allNewsItemTitle">
-                <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
-                <h3 style={{color: "#565555",}}>All News</h3>
-            </div>
-
-            <div className="allNewsContainer">
-              <AllNewsView/>
-              <AllNewsView/>
-              <AllNewsView/>
-              <AllNewsView/>
-              <AllNewsView/>
-              <AllNewsView/>
-            </div>
-
-            <Loading/>
-
-            <div className="loadmore"><Button style={{bottom: "5px",}}>Load More</Button></div>
-
+           {output}
+           
+           
           </Layout.Content>
 
         </Layout>
@@ -119,16 +164,20 @@ class HomeContainer extends Component {
 function mapStateToProps(state, props) {
   return {
     isPostsFetched: state.postsReducer.isPostsFetched,
+    allPostsCount: state.postsReducer.posts.count,
+    isLoading: state.loadingReducer.isLoading,
+    isError: state.postsReducer.isError,
     isSearchName: state.filtersReducer.text,
     isSortBy: state.filtersReducer.sortBy,
-    isPosts: getVisibleProfiles(state.postsReducer.posts, state.filtersReducer),
+    catPosts: state.postsReducer.catPosts,
+    allPosts: getVisiblePosts(state.postsReducer.posts.data, state.filtersReducer),
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
       onPostFetch: () => { dispatch(requestPosts()); },
-      onSearchName: (text) => { dispatch(filterText(text)); },
-      onSortName: (sortby) => { dispatch(sortBy(sortby)); },
+      onSearchItem: (text) => { dispatch(filterText(text)); },
+      onSortItem: (sortby) => { dispatch(sortBy(sortby)); },
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

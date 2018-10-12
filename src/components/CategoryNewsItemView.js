@@ -3,115 +3,63 @@ import PropTypes from 'prop-types';
 
 import Divider from 'antd/lib/divider';
 
+import humanReadableTime from '../utils/humanTime';
+
 
 class CategoryNewsItemView extends React.Component {
-
-    constructor() {
-        super(...arguments);
-        this.catNews = [
-            {
-                "image": 'http://mininews.co/media/news/2018/09/13/4599674d-d525-4e05-b5cb-8baf95cef529.jpg',
-                "title": 'সৌদি-রাশিয়া তেলের বাজার',
-                "description" : "ইরানের ওপিইসি গভর্নর হোসেইন কাজেমপোর আর্দেবিলি অভিযোগ করে বলেছেন, বিশ্বের তেল রপ্তানিকারক দেশগুলোর সংগঠনভুক্ত (ওপিইসি) দেশ সৌদি আরব ও অ-ওপিইসি দেশ রাশিয়া বিশ্বব্যাপী তেল বাজার জিম্মি করে রেখেছে। ইরানের বিশ্বব্যাপী তেল বাজারে প্রবেশ বন্ধ করতে যুক্তরাষ্ট্রের প্রচেষ্টার কারণে এ অবস্থার সৃষ্টি হয়েছে।",
-                "time" : "28 Oct, 18",
-                "source": "Prothom alo",
-                "category": "International"
-
-            },
-            {
-                "image": 'https://zos.alipayobjects.com/rmsportal/gGlUMYGEIvjDOOw.jpg',
-                "title": 'title 2 title 1',
-                "description" : "ok this is news description.ok this is news description. ok this is news description. ok this is news description. ok this is news description.",
-                "time" : "sep 28",
-                "source": "prothom alo"
-
-            }
-        ];
-    }
     
-      render() {
+    render() {
+
+        const { category } = this.props;
+
+        let title = category.name;
+        let id = category.name.toLowerCase();
+        let news = [];
+
+        let posts = category.posts.slice(0, 4);
+
+        posts.map((post, index) => {
+            let time = humanReadableTime(post.timestamp);
+            let details = post.content.replace(/(\r\n\t|\n|\r\t)/gm,"");
+            let content = 
+                <div className="CategoryNewsItem">
+                    <div className="CategoryNewsItemImage">
+                        <div style={{backgroundSize: 'cover', backgroundPosition: 'center',height: "100%", width: '100%', backgroundImage: `url(${post.image})`, backgroundColor: 'grey',}}></div>
+                    </div>
+                    <div className="CategoryNewsItemDetail">
+                            <div style={{fontSize: "16px", fontWeight: "700", color: "#565555"}}>{post.title}</div>
+                            <Divider style={{margin: "5px 0", width:"70%"}} />
+                            <div style={{fontSize: "14px", color: "#565555"}}>{details}</div>
+                            <Divider style={{margin: "5px 0",}} />
+                            <div className="CategoryNewsItemInfo">
+                                <div style={{textAlign: "left", fontSize: "13px",}}>{time}</div>
+                                <div style={{textAlign: "right", fontSize: "13px"}}>Source: <a href={post.source_link} target="_blank" rel="noopener noreferrer">{post.source.name}</a></div>
+                            </div>
+                    </div>
+                </div>;
+            let divider = <Divider style={{margin: "10px 0",}} />;
+            let output = <div className="categoryNewsItemView" key={index}>{content} {divider}</div>;
+            return news.push(output);
+        });
+
+
         
         return (
-                <div className="categoryNews" id={this.catNews[0].category.toLowerCase()}>
+                <div className="categoryNews" id={id}>
                     <div className="CategoryNewsItemTitle">
                         <div style={{width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
-                        <h3 style={{color: "#565555",}}>International</h3>
+                        <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "18px",}}>{title}</h3>
                     </div>
                 
-                    <div className="CategoryNewsItem">
-                        <div className="CategoryNewsItemImage">
-                            <div style={{backgroundSize: 'cover', backgroundPosition: 'center',height: "100%", width: '100%', backgroundImage: `url(${this.catNews[0].image})`, backgroundColor: 'grey',}}></div>
-                        </div>
-                        <div className="CategoryNewsItemDetail">
-                               <div style={{fontSize: "16px", fontWeight: "700", color: "#565555"}}>{this.catNews[0].title}</div>
-                               <Divider style={{margin: "5px 0", width:"70%"}} />
-                               <div style={{fontSize: "14px", color: "#565555"}}>{this.catNews[0].description}</div>
-                               <Divider style={{margin: "5px 0",}} />
-                               <div className="CategoryNewsItemInfo">
-                                    <div style={{textAlign: "left", fontSize: "13px",}}>{this.catNews[0].time}</div>
-                                    <div style={{textAlign: "right", fontSize: "13px"}}>Source: <a href="#">{this.catNews[0].source}</a></div>
-                               </div>
-                        </div>
-                    </div>
-                    <Divider style={{margin: "10px 0",}} />
-                    <div className="CategoryNewsItem">
-                        <div className="CategoryNewsItemImage">
-                            <div style={{backgroundSize: 'cover', backgroundPosition: 'center', height: '100%', backgroundImage: `url(${this.catNews[0].image})`, backgroundColor: 'grey',}}></div>
-                        </div>
-                        <div className="CategoryNewsItemDetail">
-                               <div style={{fontSize: "16px", fontWeight: "700", color: "#565555"}}>{this.catNews[0].title}</div>
-                               <Divider style={{margin: "5px 0", width:"70%"}} />
-                               <div style={{fontSize: "14px", color: "#565555"}}>{this.catNews[0].description}</div>
-                               <Divider style={{margin: "5px 0",}} />
-                               <div className="CategoryNewsItemInfo">
-                                    <div style={{textAlign: "left", fontSize: "13px",}}>{this.catNews[0].time}</div>
-                                    <div style={{textAlign: "right", fontSize: "13px"}}>Source: <a href="#">{this.catNews[0].source}</a></div>
-                               </div>
-                        </div>
-                    </div>
-                    <Divider style={{margin: "10px 0",}} />
-                    <div className="CategoryNewsItem">
-                        <div className="CategoryNewsItemImage">
-                            <div style={{backgroundSize: 'cover', backgroundPosition: 'center', height: '100%', backgroundImage: `url(${this.catNews[0].image})`, backgroundColor: 'grey',}}></div>
-                        </div>
-                        <div className="CategoryNewsItemDetail">
-                               <div style={{fontSize: "16px", fontWeight: "700", color: "#565555"}}>{this.catNews[0].title}</div>
-                               <Divider style={{margin: "5px 0", width:"70%"}} />
-                               <div style={{fontSize: "14px", color: "#565555"}}>{this.props.title}</div>
-                               <Divider style={{margin: "5px 0",}} />
-                               <div className="CategoryNewsItemInfo">
-                                    <div style={{textAlign: "left", fontSize: "13px",}}>{this.catNews[0].time}</div>
-                                    <div style={{textAlign: "right", fontSize: "13px"}}>Source: <a href="#">{this.catNews[0].source}</a></div>
-                               </div>
-                        </div>
-                    </div>
-                    <Divider style={{margin: "10px 0",}} />
-                    <div className="CategoryNewsItem">
-                        <div className="CategoryNewsItemImage">
-                            <div style={{backgroundSize: 'cover', backgroundPosition: 'center', height: '100%', backgroundImage: `url(${this.catNews[0].image})`, backgroundColor: 'grey',}}></div>
-                        </div>
-                        <div className="CategoryNewsItemDetail">
-                               <div style={{fontSize: "16px", fontWeight: "700", color: "#565555"}}>{this.catNews[0].title}</div>
-                               <Divider style={{margin: "5px 0", width:"70%"}} />
-                               <div style={{fontSize: "14px", color: "#565555"}}>{this.catNews[0].description}</div>
-                               <Divider style={{margin: "5px 0",}} />
-                               <div className="CategoryNewsItemInfo">
-                                    <div style={{textAlign: "left", fontSize: "13px",}}>{this.catNews[0].time}</div>
-                                    <div style={{textAlign: "right", fontSize: "13px"}}>Source: <a href="#">{this.catNews[0].source}</a></div>
-                               </div>
-                        </div>
-                    </div>
-                    <Divider style={{margin: "10px 0",}} />
+                    {news}
                 </div>
         );
       }
 }
 
 
-// CategoryNewsItemView.propTypes = {
-//   image: PropTypes.any.isRequired,
-//   title: PropTypes.string.isRequired,
-
-// };
+CategoryNewsItemView.propTypes = {
+  category: PropTypes.object.isRequired,
+};
 
 export default CategoryNewsItemView;

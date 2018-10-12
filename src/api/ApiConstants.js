@@ -1,6 +1,6 @@
 const ApiConstants = {
-    BASE_URL: 'https://jsonplaceholder.typicode.com/',
-    POSTS: 'posts/',
+    BASE_URL: 'http://mininews.co/api/v1/',
+    POSTS: 'news/?ordering=-timestamp',
     USERS: 'users/'
 };
 
