@@ -15,8 +15,6 @@ class CategoryNewsView extends React.Component {
 
             return CatNewsItem.push(catList);
         });
-
-        console.log(this.props.catNews);
         
         return (
             <div className="categoryNewsView">

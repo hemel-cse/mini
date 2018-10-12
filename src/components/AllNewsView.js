@@ -13,11 +13,8 @@ class AllNewsView extends React.Component {
         let output = [];
         let posts = [];
 
-        console.log(allNewsPostsItems);
-
         posts = allNewsPostsItems;
 
-        console.log(posts);
 
         posts.map((news, index) => {
             let time = humanReadableTime(news.timestamp);

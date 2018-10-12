@@ -20,7 +20,6 @@ export default function api(path, params, method, token) {
         options.headers.Authorization = token;
     }
 
-    console.log(options)
 
     return fetch(path, options)
         .then(resp => resp.json())
