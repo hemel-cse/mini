@@ -19,38 +19,94 @@ import capitalizeFirstLetter from '../../utils/capitalString';
 
 import { requestPosts, filterText, sortBy } from '../../actions/postsActions';
 import getVisiblePosts from '../../selectors/posts';
+import getVisibleCatPosts from '../../selectors/singleCats';
 
 class CategoryContainer extends Component {
 
   constructor(props) {
     super(props);
-
+    
      this.state = {
-        posts: [],
-        name: props.match.params.name
+        isLoaded: false,
+        loadpost: 6,
+        showLoadMore: true,
+        name: props.match.params.name,
     };
+  }
+
+  componentDidMount(){
+    if(!this.props.isPostsFetched) {
+      this.fetchPosts();
+    }
+  }
+
+
+  fetchPosts = () => {
+    this.props.onPostFetch();
   }
 
   handleSearchName = (e) => {
     e.preventDefault();
-    this.props.onSearchName(e.target.value);
+    this.props.onSearchItem(e.target.value);
   }
 
   handleSortName = (value) => {
-    this.props.onSortName(value);
+    this.props.onSortItem(value);
+  }
+
+  handleLoadMore = () => {
+    let loadPostCount = this.state.loadpost + 6;
+    if(loadPostCount < this.props.allPostsCount){
+      this.setState({loadpost: loadPostCount}); 
+    }
+    else {
+      this.setState({showLoadMore: false}); 
+    }
   }
 
   componentDidUpdate() {
-    console.log('Data Update...');
+
     let newpath = this.props.match.params.name;
     if(this.state.name!==newpath) {
       this.setState({name: newpath}); 
     }
   }
-
+  
   render() {
 
     let catname = capitalizeFirstLetter(this.state.name);
+
+
+    let output = [];
+    let allNews = [];
+    let loadmore = []; 
+    let allposts = getVisibleCatPosts(this.props.allPosts, this.state.name);
+    
+
+    let allNewsPosts = allposts.slice(0, this.state.loadpost);
+
+
+    if(this.state.showLoadMore){
+      loadmore = <div className="loadmore"><Button style={{bottom: "5px",}} onClick={this.handleLoadMore}>Load More</Button></div>;
+    }
+
+
+    if(this.props.isPostsFetched) {
+      allNews = <AllNewsView allNewsPostsItems={allNewsPosts} />;
+    }
+
+    if(!this.props.isPostsFetched || this.props.isLoading) {
+      output = <Loading/>;
+    }
+    else if(this.props.isError){
+      output = <div style={{alignItems: "center" ,width: "80%", height: "60vh", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555", alignContent: "center", alignSelf: "center", padding: "20px", textAlign: "center"}}>Something Wrong! Please Try Again!</h2></div>;
+    }
+    else {
+      output =
+            <div className="singleCategoryNewsContainer">
+                {allNews}
+            </div>;
+      }
 
     return (
       <Layout className="container">
@@ -64,26 +120,27 @@ class CategoryContainer extends Component {
           <CategoryMenuView categories={categories} active={this.state.name}/>
 
            <br/>
-           
+           {this.props.isPostsFetched ? 
+
             <div className="singleCategoryTitle">
                 <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "grey",}}></div>
                 <h3 style={{color: "#565555", fontWeight: "700", fontSize: "20px",}}>{catname}</h3>
             </div>
-
+          
+            : null}
+           
             <Divider style={{margin: "5px 0",}}/>
 
-            <div className="singleCategoryNewsContainer">
-              <AllNewsView/>
-              <AllNewsView/>
-              <AllNewsView/>
-              <AllNewsView/>
-              <AllNewsView/>
-              <AllNewsView/>
-            </div>
+              {output}
+            
+            
+            {this.props.isPostsFetched ? 
 
-            <Loading/>
-
-            <div className="loadmore"><Button style={{bottom: "5px",}}>Load More</Button></div>
+              loadmore
+            
+              : null}
+            
+            
 
           </Layout.Content>
 
@@ -99,16 +156,20 @@ class CategoryContainer extends Component {
 function mapStateToProps(state, props) {
   return {
     isPostsFetched: state.postsReducer.isPostsFetched,
+    allPostsCount: state.postsReducer.posts.count,
+    isLoading: state.loadingReducer.isLoading,
+    isError: state.postsReducer.isError,
     isSearchName: state.filtersReducer.text,
     isSortBy: state.filtersReducer.sortBy,
-    isPosts: getVisiblePosts(state.postsReducer.posts.data, state.filtersReducer),
+    catPosts: state.postsReducer.catPosts,
+    allPosts: getVisiblePosts(state.postsReducer.posts.data, state.filtersReducer),
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
       onPostFetch: () => { dispatch(requestPosts()); },
-      onSearchName: (text) => { dispatch(filterText(text)); },
-      onSortName: (sortby) => { dispatch(sortBy(sortby)); },
+      onSearchItem: (text) => { dispatch(filterText(text)); },
+      onSortItem: (sortby) => { dispatch(sortBy(sortby)); },
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryContainer);

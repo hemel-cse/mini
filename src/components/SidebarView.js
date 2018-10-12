@@ -29,7 +29,7 @@ class SideBarView extends React.Component {
 
         news.map((post, index) => {
             let link = "/#"+post.category.name.toLowerCase();
-            let title = <div style={{fontSize: "16px", paddingBottom: "2px",}}>{post.title} - <a href={link}>{post.category.name}</a></div>;
+            let title = <div style={{fontSize: "16px", paddingBottom: "2px",}}>{post.title.trim()} - <a href={link}>{post.category.name}</a></div>;
             let divider = <Divider style={{margin: "5px 0",}} />;
             let content = <div className="sidebarViewContent" key={index}>{title} {divider}</div>;
             return newspost.push(content);

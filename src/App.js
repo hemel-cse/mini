@@ -5,6 +5,7 @@ import './App.css';
 
 import HomeContainer from './container/Home';
 import CategoryContainer from './container/Category';
+import NotFound from './container/NotFound';
 
 class App extends Component {
 
@@ -14,6 +15,7 @@ class App extends Component {
         <Switch>
               <Route exact path='/' component={HomeContainer} />
               <Route path='/category/:name' component={CategoryContainer} />
+              <Route component={NotFound} />
           </Switch>
       </BrowserRouter>
     );

@@ -42,7 +42,6 @@ class HomeContainer extends Component {
 
 
   fetchPosts = () => {
-    console.log("button pressed!");
     this.props.onPostFetch();
   }
 
@@ -79,9 +78,6 @@ class HomeContainer extends Component {
     let allNewsPosts = this.props.allPosts.slice(0, this.state.loadpost);
 
 
-
-    console.log(allNewsPosts);
-
     if(this.state.showLoadMore){
       loadmore = <div className="loadmore"><Button style={{bottom: "5px",}} onClick={this.handleLoadMore}>Load More</Button></div>;
     }
@@ -94,7 +90,7 @@ class HomeContainer extends Component {
       output = <Loading/>;
     }
     else if(this.props.isError){
-      output = <div style={{alignItems: "center" ,width: "80%", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555",}}>Something Wrong! Please Try Again!</h2></div>;
+      output = <div style={{alignItems: "center" ,width: "80%", height: "60vh", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555", alignContent: "center", alignSelf: "center", padding: "20px", textAlign: "center"}}>Something Wrong! Please Try Again!</h2></div>;
     }
     else {
         output = 
