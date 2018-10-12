@@ -1,6 +1,16 @@
 {
-  "name": "Mini-News-Web",
+  "name": "MiniNews",
+  "title": "Mini News",
+  "description": "Mini News Web",
   "version": "0.1.1",
+  "author": "Hasibul Amin Hemel <ihemel.net@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hemel-cse/mini"
+  },
+  "bugs": "https://github.com/hemel-cse/mini/issues",
+  "license": "MIT",
+  "homepage": "http://mininews.co",
   "private": true,
   "dependencies": {
     "antd": "^3.10.0",
