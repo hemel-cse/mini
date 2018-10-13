@@ -56,7 +56,8 @@ class CategoryContainer extends Component {
 
   handleLoadMore = () => {
     let loadPostCount = this.state.loadpost + 6;
-    if(loadPostCount < this.props.allPostsCount){
+    let allPostsCount =  getVisibleCatPosts(this.props.allPosts, this.state.name).length;
+    if(loadPostCount < allPostsCount){
       this.setState({loadpost: loadPostCount}); 
     }
     else {
@@ -68,7 +69,7 @@ class CategoryContainer extends Component {
 
     let newpath = this.props.match.params.name;
     if(this.state.name!==newpath) {
-      this.setState({name: newpath}); 
+      this.setState({name: newpath, loadpost: 6, showLoadMore: true}); 
     }
   }
   
@@ -89,7 +90,6 @@ class CategoryContainer extends Component {
     if(this.state.showLoadMore){
       loadmore = <div className="loadmore"><Button style={{bottom: "5px",}} onClick={this.handleLoadMore}>Load More</Button></div>;
     }
-
 
     if(this.props.isPostsFetched) {
       allNews = <AllNewsView allNewsPostsItems={allNewsPosts} />;

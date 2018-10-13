@@ -233,35 +233,6 @@
     width: 200px;
 }
 
-.slider {
-    height: 360px;
-}
-
-.sliderText {
-    color: #fff;
-    font-size: 18px;
-    position: absolute;
-    font-weight: bold;
-    bottom: 10%;
-    padding-left: 5%;
-    padding-right: 20%;
-    align-items: center;
-    align-self: center;
-    text-align: center;
-}
-
-
-.ant-carousel .slick-slide {
-    text-align: center;
-    height: 360px;
-    line-height: 300px;
-    background: #364d79;
-    overflow: hidden;
-}
-  
-.ant-carousel .slick-slide h3 {
-    color: #fff;
-}
 
 
 /* Tab and Mobile css */

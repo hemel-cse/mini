@@ -6,22 +6,6 @@ import Divider from 'antd/lib/divider';
 
 class SideBarView extends React.Component {
 
-    constructor() {
-        super(...arguments);
-        this.sideArray = [
-            {
-                "image": 'https://zos.alipayobjects.com/rmsportal/hzPBTkqtFpLlWCi.jpg',
-                "title": 'সৌদি-রাশিয়া তেলের বাজার',
-
-            },
-            {
-                "image": 'https://zos.alipayobjects.com/rmsportal/gGlUMYGEIvjDOOw.jpg',
-                "title": 'title 2',
-
-            }
-        ];
-    }
-    
       render() {
         const { news } = this.props;
 

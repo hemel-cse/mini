@@ -30,6 +30,7 @@ class HomeContainer extends Component {
      this.state = {
         isLoaded: false,
         loadpost: 6,
+        searchText: "",
         showLoadMore: true,
     };
   }
@@ -47,6 +48,7 @@ class HomeContainer extends Component {
 
   handleSearchName = (e) => {
     e.preventDefault();
+    this.setState({searchText: e.target.value}); 
     this.props.onSearchItem(e.target.value);
   }
 
@@ -76,6 +78,7 @@ class HomeContainer extends Component {
     let loadmore = []; 
     let sidebarNews = this.props.allPosts.slice(0, 8);
     let allNewsPosts = this.props.allPosts.slice(0, this.state.loadpost);
+    let sliderPosts = this.props.galleryPosts.slice(0, 5);
 
 
     if(this.state.showLoadMore){
@@ -92,15 +95,31 @@ class HomeContainer extends Component {
     else if(this.props.isError){
       output = <div style={{alignItems: "center" ,width: "80%", height: "60vh", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555", alignContent: "center", alignSelf: "center", padding: "20px", textAlign: "center"}}>Something Wrong! Please Try Again!</h2></div>;
     }
+    else if(this.state.searchText){
+      output = 
+          <div className="content">
+
+            <div className="allNewsItemTitle">
+                <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
+                <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "18px",}}>All News</h3>
+            </div>
+
+            <div className="allNewsContainer">
+                {allNews}
+            </div>
+
+            {loadmore}
+            
+        </div>;
+    }
     else {
         output = 
           <div className="content">
 
             <div className="topContent">
-              <div className="gallaryContent">
+              <div className="galleryContent">
                   <ImageSlider 
-                    image="https://jssorcdn7.azureedge.net/demos/img/gallery/980x380/002.jpg"
-                    title="slider title"
+                    posts={sliderPosts}
                   />
               </div>
               <div className="sidebarContent">
@@ -166,6 +185,7 @@ function mapStateToProps(state, props) {
     isSearchName: state.filtersReducer.text,
     isSortBy: state.filtersReducer.sortBy,
     catPosts: state.postsReducer.catPosts,
+    galleryPosts: state.postsReducer.galleryPosts,
     allPosts: getVisiblePosts(state.postsReducer.posts.data, state.filtersReducer),
   };
 }

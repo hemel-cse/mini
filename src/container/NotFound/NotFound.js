@@ -55,8 +55,9 @@ class NotFound extends Component {
     if(!this.props.isPostsFetched || this.props.isLoading) {
       output = <Loading/>;
     }
-    else {
-      output = <div style={{alignItems: "center" ,width: "80%", height: "60vh", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555", alignContent: "center", alignSelf: "center", padding: "20px", textAlign: "center"}}>Not Found! Please Try Again!</h2></div>;
+
+    if(this.props.isPostsFetched ){
+        output = <div style={{alignItems: "center" ,width: "80%", height: "60vh", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555", alignContent: "center", alignSelf: "center", padding: "20px", textAlign: "center"}}>Page Not Found! Please try again!</h2></div>;
     }
 
     return (

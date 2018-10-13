@@ -6,31 +6,21 @@ import SliderButtons from './SliderButtons';
 
 
 class ImageSlider extends React.Component {
-
-    constructor() {
-        super(...arguments);
-        this.imgArray = [
-            {
-                "image": 'https://zos.alipayobjects.com/rmsportal/hzPBTkqtFpLlWCi.jpg',
-                "title": 'সৌদি-রাশিয়া তেলের বাজার',
-
-            },
-            {
-                "image": 'https://zos.alipayobjects.com/rmsportal/gGlUMYGEIvjDOOw.jpg',
-                "title": 'সৌদি-রাশিয়া তেলের বাজার',
-
-            }
-        ];
-    }
     
       render() {
+
+        let slider = [];
+
+        this.props.posts.map((post, index) => {
+            let content = <div key={index} style={{backgroundSize: 'cover', backgroundPosition: 'center', height: '100%', backgroundImage: `url(${post.image})`, backgroundColor: 'grey',}}><span className="sliderText">{post.title}</span></div>;
+            return slider.push(content);
+        });
+
         
         return (
           <div className="slider">
             <Carousel loop auto widgets={[SliderIndicatorDots, SliderButtons]}>
-            <div style={{backgroundSize: 'cover', backgroundPosition: 'center', height: '100%', backgroundImage: `url(${this.imgArray[0].image})`, backgroundColor: 'grey',}}><span className="sliderText">{this.imgArray[0].title}</span></div>
-            <div style={{backgroundSize: 'cover', backgroundPosition: 'center', height: '100%', backgroundImage: `url(${this.imgArray[1].image})`, backgroundColor: 'grey',}}><span className="sliderText">{this.imgArray[1].title}</span></div>
-            <div style={{backgroundColor: 'grey', height: '100%'}}><span className="sliderText">Frame 1</span></div>
+              {slider}
             </Carousel>
           </div>
         );
@@ -39,8 +29,7 @@ class ImageSlider extends React.Component {
 
 
 ImageSlider.propTypes = {
-  image: PropTypes.any.isRequired,
-  title: PropTypes.string.isRequired,
+  posts: PropTypes.array.isRequired,
 };
 
 export default ImageSlider;

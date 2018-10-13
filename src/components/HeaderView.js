@@ -31,7 +31,7 @@ class HeaderView extends React.Component {
                   />
                 </div>
             <div className="headerRight">
-                <span><FiFacebook  color="blue" size="1.5em" className="social-icon" /></span><span className="social-icon-right"><FiTwitter  color="blue" size="1.5em" className="social-icon" /></span>
+                <span><a href="https://www.facebook.com/mininewsbd/" target="_blank" rel="noopener noreferrer"><FiFacebook  color="blue" size="1.5em" className="social-icon" /></a></span><span className="social-icon-right"><a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FiTwitter  color="blue" size="1.5em" className="social-icon" /></a></span>
             </div>
         </div>
         );

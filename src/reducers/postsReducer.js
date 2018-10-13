@@ -4,6 +4,7 @@ import * as types from '../actions/types';
 import categories from '../constants';
 
 import getCategoryPosts from '../selectors/cats';
+import getGalleryPosts from '../selectors/gallery';
 
 const initialState = {
     isPostsFetched: false,
@@ -13,6 +14,7 @@ const initialState = {
         "count": 0,
     },
     catPosts: [],
+    galleryPosts: [],
     isError: false,
 };
 
@@ -41,7 +43,7 @@ export const postsReducer = createReducer(initialState, {
             return catPost.push(Object.assign(name, posts, count));
         });
 
-        
+        let galPosts = getGalleryPosts(result, "Gallery");
 
         let allPost = Object.assign({"data": result}, {"count": result.length});
 
@@ -49,6 +51,7 @@ export const postsReducer = createReducer(initialState, {
             ...state,
             posts:  allPost,
             catPosts: catPost,
+            galleryPosts: galPosts,
             isPostsFetched: true,
             isError: false,
         };

@@ -93,7 +93,7 @@
 }
 
 
-.gallaryContent {
+.galleryContent {
     width: 64%;
     border-right: 2px solid;
     border-color: #1b8fe3;
@@ -273,15 +273,18 @@
 
 .sliderText {
     color: #fff;
+    background:rgba(130,130,130,0.75);
     font-size: 18px;
     position: absolute;
     font-weight: bold;
     bottom: 10%;
-    padding-left: 5%;
-    padding-right: 20%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 3px 10px;
     align-items: center;
     align-self: center;
     text-align: center;
+    box-shadow: 0 2px 4px rgba(120, 120, 120, 0.35);
 }
 
 
@@ -326,7 +329,7 @@
         flex-direction: column;
         height: auto;
     }
-    .gallaryContent{
+    .galleryContent{
         width: 90%;
         justify-content: center;
         align-items: center;
