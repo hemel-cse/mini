@@ -365,7 +365,7 @@
 
 
 
-@media screen and (max-width: 760px) { 
+@media screen and (max-width: 768px) { 
     .allNewsContainer {
         flex-direction: column;
         height: auto;
@@ -392,9 +392,11 @@
         align-self: center;
         width: 95%;
     }
-    .slider {
-        height: 240px;
-    }
     
  }
 
+ @media screen and (max-width: 760px) { 
+    .slider {
+        height: 240px;
+    }
+ }
