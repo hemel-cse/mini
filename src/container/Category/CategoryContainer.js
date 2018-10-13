@@ -29,6 +29,7 @@ class CategoryContainer extends Component {
      this.state = {
         isLoaded: false,
         loadpost: 6,
+        searchText: "",
         showLoadMore: true,
         name: props.match.params.name,
     };
@@ -47,6 +48,7 @@ class CategoryContainer extends Component {
 
   handleSearchName = (e) => {
     e.preventDefault();
+    this.setState({searchText: e.target.value});
     this.props.onSearchItem(e.target.value);
   }
 
@@ -100,6 +102,18 @@ class CategoryContainer extends Component {
     }
     else if(this.props.isError){
       output = <div style={{alignItems: "center" ,width: "80%", height: "60vh", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555", alignContent: "center", alignSelf: "center", padding: "20px", textAlign: "center"}}>Something Wrong! Please Try Again!</h2></div>;
+    }
+    else if(this.state.searchText){
+      if(allNewsPosts.length >= 1) {
+        output = 
+            <div className="singleCategoryNewsContainer">
+                {allNews}
+            </div>;
+      }
+      else output = 
+            <div className="singleCategoryNewsContainer">
+              <div style={{alignItems: "center" ,width: "80%", height: "60vh", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555", alignContent: "center", alignSelf: "center", padding: "20px", textAlign: "center"}}>Nothing Found! What are you looking for?</h2></div>
+            </div>;
     }
     else {
       output =

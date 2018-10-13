@@ -96,21 +96,27 @@ class HomeContainer extends Component {
       output = <div style={{alignItems: "center" ,width: "80%", height: "60vh", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555", alignContent: "center", alignSelf: "center", padding: "20px", textAlign: "center"}}>Something Wrong! Please Try Again!</h2></div>;
     }
     else if(this.state.searchText){
-      output = 
-          <div className="content">
+      if(allNewsPosts.length >= 1) {
+        output = 
+            <div className="content">
 
-            <div className="allNewsItemTitle">
-                <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
-                <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "18px",}}>All News</h3>
-            </div>
+              <div className="allNewsItemTitle">
+                  <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
+                  <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "18px",}}>All News</h3>
+              </div>
 
-            <div className="allNewsContainer">
-                {allNews}
-            </div>
+              <div className="allNewsContainer">
+                  {allNews}
+              </div>
 
-            {loadmore}
-            
-        </div>;
+              {loadmore}
+              
+          </div>;
+      }
+      else output = 
+            <div className="content">
+              <div style={{alignItems: "center" ,width: "80%", height: "60vh", padding: "10px", alignSelf: "center",}}><h2 style={{color: "#565555", alignContent: "center", alignSelf: "center", padding: "20px", textAlign: "center"}}>Nothing Found! What are you looking for?</h2></div>
+            </div>;
     }
     else {
         output = 
