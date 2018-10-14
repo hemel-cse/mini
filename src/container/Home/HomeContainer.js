@@ -102,7 +102,7 @@ class HomeContainer extends Component {
 
               <div className="allNewsItemTitle">
                   <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
-                  <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "18px",}}>All News</h3>
+                  <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "20px",}}>All News</h3>
               </div>
 
               <div className="allNewsContainer">
@@ -143,7 +143,7 @@ class HomeContainer extends Component {
 
             <div className="allNewsItemTitle">
                 <div style={{alignItems: "center" ,width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
-                <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "18px",}}>All News</h3>
+                <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "20px",}}>All News</h3>
             </div>
 
             <div className="allNewsContainer">

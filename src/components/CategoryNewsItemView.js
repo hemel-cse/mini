@@ -27,9 +27,9 @@ class CategoryNewsItemView extends React.Component {
                         <div style={{backgroundSize: 'cover', backgroundPosition: 'center',height: "100%", width: '100%', backgroundImage: `url(${post.image})`, backgroundColor: 'grey',}}></div>
                     </div>
                     <div className="CategoryNewsItemDetail">
-                            <div style={{fontSize: "16px", fontWeight: "700", color: "#565555"}}>{post.title}</div>
+                            <div style={{fontSize: "17px", fontWeight: "700", color: "#565555"}}>{post.title}</div>
                             <Divider style={{margin: "5px 0", width:"70%"}} />
-                            <div style={{fontSize: "14px", color: "#565555"}}>{details}</div>
+                            <div style={{fontSize: "14.5px", color: "#565555"}}>{details}</div>
                             <Divider style={{margin: "5px 0",}} />
                             <div className="CategoryNewsItemInfo">
                                 <div style={{textAlign: "left", fontSize: "13px",}}>{time}</div>
@@ -48,7 +48,7 @@ class CategoryNewsItemView extends React.Component {
                 <div className="categoryNews" id={id}>
                     <div className="CategoryNewsItemTitle">
                         <div style={{width: "40%", paddingBottom: "5px", borderTop: "2px solid", borderTopRightRadius: "5px", borderTopColor: "#1b8fe3",}}></div>
-                        <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "18px",}}>{title}</h3>
+                        <h3 style={{color: "#565555", fontWeight: "bold", fontSize: "20px",}}>{title}</h3>
                     </div>
                 
                     {news}

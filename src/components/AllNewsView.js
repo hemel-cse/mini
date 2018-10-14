@@ -25,9 +25,9 @@ class AllNewsView extends React.Component {
                             <div style={{backgroundSize: 'cover', backgroundPosition: 'center',height: "100%", width: '100%', backgroundImage: `url(${news.image})`, backgroundColor: 'grey',}}></div>
                         </div>
                         <div className="allNewsItemDetail">
-                               <div style={{fontSize: "16px", fontWeight: "700", color: "#565555"}}>{news.title}</div>
+                               <div style={{fontSize: "17px", fontWeight: "700", color: "#565555"}}>{news.title}</div>
                                <Divider style={{margin: "5px 0", width:"70%"}} />
-                               <div style={{fontSize: "14px", color: "#565555"}}>{details}</div>
+                               <div style={{fontSize: "14.5px", color: "#565555"}}>{details}</div>
                                <Divider style={{margin: "5px 0",}} />
                                <div className="allNewsItemInfo">
                                     <div style={{textAlign: "left", fontSize: "13px",}}>{time}</div>
