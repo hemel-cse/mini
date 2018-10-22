@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 
 import logo from '../../assets/logo.png';
@@ -161,6 +162,16 @@ class HomeContainer extends Component {
         
         <Layout className="containerContent">
           <BackTop visibilityHeight={800} />
+
+          <Helmet>
+            <title>Mini News</title>
+            <meta name="description" content="Mini News anywhere in short time!" />
+            <meta property="og:title" content="Mini News" />
+            <meta property="og:url" content="https://mininews.co/" />
+            <meta property="og:description" content="Mini News anywhere in short time!" />
+            <meta property="og:image" content="https://mininews.co/media/images/og-image-v1.png" />
+            <meta name="apple-mobile-web-app-title" content="Mini News"></meta>
+          </Helmet>
 
           <Layout.Content className="content">
 
